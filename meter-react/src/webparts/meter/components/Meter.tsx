@@ -12,7 +12,7 @@ export default class Meter extends React.Component<IMeterProps, {}> {
         <header style={{ textAlign: this.props.headerAlignment as TextAlignProperty }}>
         <h1>{this.props.title}</h1>
         <p>{this.props.description}</p>
-        <Donut percentage={this.props.percentage} showPercentageValue={this.props.showPercentageValue}></Donut>
+        <Donut percentage={this.props.percentage} showPercentageValue={this.props.showPercentageValue} fillColor={this.props.fillColor}></Donut>
         </header>
       </div>
     );

@@ -25,7 +25,8 @@
       "description": "Meter Description",
       "percentage": 0,
       "showPercentageValue": true,
-      "headerAlignment": "center"
+      "headerAlignment": "center",
+      "fillColor": "#47c3f0"
     }
   }]
 }
