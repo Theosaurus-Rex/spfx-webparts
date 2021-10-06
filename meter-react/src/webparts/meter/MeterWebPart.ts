@@ -7,7 +7,8 @@ import {
   PropertyPaneHorizontalRule,
   PropertyPaneLabel,
   PropertyPaneSlider,
-  PropertyPaneCheckbox
+  PropertyPaneCheckbox,
+  PropertyPaneDropdown
 
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
@@ -21,6 +22,7 @@ export interface IMeterWebPartProps {
   description: string;
   percentage: number;
   showPercentageValue: boolean;
+  headerAlignment: string;
 }
 
 export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartProps> {
@@ -32,7 +34,8 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
         title: this.properties.title,
         description: this.properties.description,
         percentage: this.properties.percentage,
-        showPercentageValue: this.properties.showPercentageValue
+        showPercentageValue: this.properties.showPercentageValue,
+        headerAlignment: this.properties.headerAlignment
       }
     );
 
@@ -65,6 +68,14 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
                 PropertyPaneTextField('description', {
                   label: 'Description'
                 }),
+                PropertyPaneDropdown('headerAlignment', {
+                  label: 'Header Alignment',
+                  options: [
+                    {key: 'left', text: 'Left' },
+                    {key: 'center', text: 'Center' },
+                    {key: 'right', text: 'Right' },
+                  ]
+                })
                 
               ]
             },
