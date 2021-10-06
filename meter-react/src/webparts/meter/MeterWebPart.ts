@@ -7,8 +7,14 @@ import {
   PropertyPaneHorizontalRule,
   PropertyPaneLabel,
   PropertyPaneSlider,
+  PropertyPaneCheckbox,
+  PropertyPaneDropdown
 
 } from '@microsoft/sp-property-pane';
+import {
+  PropertyFieldColorPicker,
+  PropertyFieldColorPickerStyle
+} from '@pnp/spfx-property-controls/lib/PropertyFieldColorPicker'
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'MeterWebPartStrings';
@@ -19,6 +25,9 @@ export interface IMeterWebPartProps {
   title: string;
   description: string;
   percentage: number;
+  showPercentageValue: boolean;
+  headerAlignment: string;
+  fillColor: string;
 }
 
 export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartProps> {
@@ -29,7 +38,10 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
       {
         title: this.properties.title,
         description: this.properties.description,
-        percentage: this.properties.percentage
+        percentage: this.properties.percentage,
+        showPercentageValue: this.properties.showPercentageValue,
+        headerAlignment: this.properties.headerAlignment,
+        fillColor: this.properties.fillColor
       }
     );
 
@@ -62,6 +74,14 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
                 PropertyPaneTextField('description', {
                   label: 'Description'
                 }),
+                PropertyPaneDropdown('headerAlignment', {
+                  label: 'Header Alignment',
+                  options: [
+                    {key: 'left', text: 'Left' },
+                    {key: 'center', text: 'Center' },
+                    {key: 'right', text: 'Right' },
+                  ]
+                })
                 
               ]
             },
@@ -78,7 +98,23 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
                   {
                     text: 'Enter a number between 0 and 100'
                   }
-                )
+                ),
+                PropertyPaneCheckbox('showPercentageValue', {
+                  text: 'Show Percentage'
+                }),
+                PropertyFieldColorPicker('fillColor', {
+                  label: 'Color',
+                  selectedColor: this.properties.fillColor,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  disabled: false,
+                  debounce: 1000,
+                  isHidden: false,
+                  alphaSliderHidden: true,
+                  style: PropertyFieldColorPickerStyle.Inline,
+                  iconName: 'Precipitation',
+                  key: 'colorFieldId'
+                })
               ]
             }
           ]
