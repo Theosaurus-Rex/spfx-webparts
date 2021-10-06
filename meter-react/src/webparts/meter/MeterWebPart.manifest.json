@@ -23,7 +23,8 @@
     "properties": {
       "title": "Meter",
       "description": "Meter Description",
-      "percentage": 0
+      "percentage": 0,
+      "showPercentageValue": true
     }
   }]
 }

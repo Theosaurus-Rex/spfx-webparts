@@ -7,6 +7,7 @@ import {
   PropertyPaneHorizontalRule,
   PropertyPaneLabel,
   PropertyPaneSlider,
+  PropertyPaneCheckbox
 
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
@@ -19,6 +20,7 @@ export interface IMeterWebPartProps {
   title: string;
   description: string;
   percentage: number;
+  showPercentageValue: boolean;
 }
 
 export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartProps> {
@@ -29,7 +31,8 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
       {
         title: this.properties.title,
         description: this.properties.description,
-        percentage: this.properties.percentage
+        percentage: this.properties.percentage,
+        showPercentageValue: this.properties.showPercentageValue
       }
     );
 
@@ -78,7 +81,10 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
                   {
                     text: 'Enter a number between 0 and 100'
                   }
-                )
+                ),
+                PropertyPaneCheckbox('showPercentageValue', {
+                  text: 'Show Percentage'
+                })
               ]
             }
           ]
