@@ -3,7 +3,11 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneHorizontalRule,
+  PropertyPaneLabel,
+  PropertyPaneSlider,
+
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
@@ -45,21 +49,36 @@ export default class MeterWebPart extends BaseClientSideWebPart<IMeterWebPartPro
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: 'Meter Settings'
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: "Header Settings",
               groupFields: [
                 PropertyPaneTextField('title', {
                   label: "Title"
                 }),
+                PropertyPaneHorizontalRule(),
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                  label: 'Description'
                 }),
-                PropertyPaneTextField('percentage', {
-                  label: "Percentage"
-                })
+                
+              ]
+            },
+            {
+              groupName: 'Chart Settings',
+              groupFields: [
+                PropertyPaneSlider('percentage', {
+                  min: 0,
+                  max: 100,
+                  step: 1,
+                }),
+                PropertyPaneLabel(
+                  null,
+                  {
+                    text: 'Enter a number between 0 and 100'
+                  }
+                )
               ]
             }
           ]
